@@ -11,7 +11,11 @@ import NotFound from "./pages/NotFound";
 import Trips from "./pages/Trips";
 import { Plane } from "lucide-react";
 
-const queryClient = new QueryClient();
+// Persist QueryClient across HMR to prevent tearing during remounts
+// @ts-expect-error store on window
+const queryClient: QueryClient = (window as any).__rq || new QueryClient();
+// @ts-expect-error assign on window
+(window as any).__rq = queryClient;
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
