@@ -12,9 +12,7 @@ import Trips from "./pages/Trips";
 import { Plane } from "lucide-react";
 
 // Persist QueryClient across HMR to prevent tearing during remounts
-// @ts-expect-error store on window
 const queryClient: QueryClient = (window as any).__rq || new QueryClient();
-// @ts-expect-error assign on window
 (window as any).__rq = queryClient;
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -106,11 +104,9 @@ const App = () => (
 
 const container = document.getElementById("root")!;
 // Reuse root across HMR to avoid double createRoot
-// @ts-expect-error assign on window for persistence across module reloads
 let root = (window as any).__app_root;
 if (!root) {
   root = createRoot(container);
-  // @ts-expect-error store on window
   (window as any).__app_root = root;
 }
 root.render(<App />);
