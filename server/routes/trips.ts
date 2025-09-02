@@ -52,7 +52,8 @@ function upsertTrip(trip: z.infer<typeof tripSchema>) {
 export function registerTripsRoutes(app: Router) {
   app.get("/api/trips", (_req: Request, res: Response) => {
     const trips = Array.from(tripsStore.values()).sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
     res.json({ trips });
   });
@@ -66,7 +67,9 @@ export function registerTripsRoutes(app: Router) {
   app.post("/api/trips", (req: Request, res: Response) => {
     const parsed = tripSchema.safeParse(req.body);
     if (!parsed.success) {
-      return res.status(400).json({ message: "Invalid payload", issues: parsed.error.issues });
+      return res
+        .status(400)
+        .json({ message: "Invalid payload", issues: parsed.error.issues });
     }
     upsertTrip(parsed.data as any);
     return res.status(201).json({ success: true, id: (parsed.data as any).id });
@@ -75,7 +78,9 @@ export function registerTripsRoutes(app: Router) {
   app.post("/api/trips/bulk", (req: Request, res: Response) => {
     const parsed = syncTripsRequestSchema.safeParse(req.body);
     if (!parsed.success) {
-      return res.status(400).json({ message: "Invalid payload", issues: parsed.error.issues });
+      return res
+        .status(400)
+        .json({ message: "Invalid payload", issues: parsed.error.issues });
     }
     const syncedIds: string[] = [];
     for (const t of parsed.data.trips as any[]) {
