@@ -68,8 +68,8 @@ export function registerTripsRoutes(app: Router) {
     if (!parsed.success) {
       return res.status(400).json({ message: "Invalid payload", issues: parsed.error.issues });
     }
-    upsertTrip(parsed.data);
-    return res.status(201).json({ success: true, id: parsed.data.id });
+    upsertTrip(parsed.data as any);
+    return res.status(201).json({ success: true, id: (parsed.data as any).id });
   });
 
   app.post("/api/trips/bulk", (req: Request, res: Response) => {
