@@ -9,7 +9,7 @@ const companionSchema = z.object({
   relationship: z.string().optional(),
 });
 
-const tripSchema: z.ZodType<Trip> = z.object({
+const tripSchema = z.object({
   id: z.string(),
   tripNumber: z.number().int().nonnegative(),
   origin: z.string().min(1),
@@ -37,7 +37,7 @@ const tripSchema: z.ZodType<Trip> = z.object({
   syncedAt: z.string().optional(),
 });
 
-const syncTripsRequestSchema: z.ZodType<SyncTripsRequest> = z.object({
+const syncTripsRequestSchema = z.object({
   trips: z.array(tripSchema),
 });
 
