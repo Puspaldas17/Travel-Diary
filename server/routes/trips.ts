@@ -44,8 +44,9 @@ const syncTripsRequestSchema = z.object({
 // Simple in-memory store. Replace with DB as needed.
 const tripsStore = new Map<string, Trip>();
 
-function upsertTrip(trip: Trip) {
-  tripsStore.set(trip.id, { ...trip, syncedAt: new Date().toISOString() });
+function upsertTrip(trip: z.infer<typeof tripSchema>) {
+  const stored: Trip = { ...trip, syncedAt: new Date().toISOString() } as Trip;
+  tripsStore.set(trip.id, stored);
 }
 
 export function registerTripsRoutes(app: Router) {
