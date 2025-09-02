@@ -89,12 +89,19 @@ export default function Trips() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {trips.map((t) => (
-          <TripCard key={t.id} trip={t} onSync={syncTrip} onDelete={handleDelete} />
+          <TripCard
+            key={t.id}
+            trip={t}
+            onSync={syncTrip}
+            onDelete={handleDelete}
+          />
         ))}
       </div>
 
       {!trips.length && (
-        <div className="text-center text-muted-foreground py-24">No trips yet. Capture your first trip from Home.</div>
+        <div className="text-center text-muted-foreground py-24">
+          No trips yet. Capture your first trip from Home.
+        </div>
       )}
     </div>
   );

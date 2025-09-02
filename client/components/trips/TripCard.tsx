@@ -33,16 +33,22 @@ export default function TripCard({ trip, onSync, onDelete }: Props) {
             <span className="font-medium">Mode:</span> {trip.mode}
           </div>
           <div>
-            <span className="font-medium">Time:</span> {new Date(trip.departureTime).toLocaleString()}
+            <span className="font-medium">Time:</span>{" "}
+            {new Date(trip.departureTime).toLocaleString()}
           </div>
         </div>
         {!!trip.companions?.length && (
           <div>
-            <span className="font-medium">Companions:</span> {trip.companions.length}
+            <span className="font-medium">Companions:</span>{" "}
+            {trip.companions.length}
           </div>
         )}
         <div className="flex gap-2 pt-2">
-          <Button size="sm" onClick={() => onSync(trip)} disabled={!!trip.syncedAt}>
+          <Button
+            size="sm"
+            onClick={() => onSync(trip)}
+            disabled={!!trip.syncedAt}
+          >
             <UploadCloud className="h-4 w-4 mr-2" /> Sync
           </Button>
           <Button size="sm" variant="outline" onClick={() => onDelete(trip.id)}>

@@ -3,7 +3,13 @@ import { Trip, TripMode, Companion } from "@shared/api";
 import { nextTripNumber, saveTrip } from "@/lib/trips";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -32,8 +38,12 @@ export default function TripForm() {
   const [originLat, setOriginLat] = useState<number | undefined>(undefined);
   const [originLng, setOriginLng] = useState<number | undefined>(undefined);
   const [destination, setDestination] = useState("");
-  const [destinationLat, setDestinationLat] = useState<number | undefined>(undefined);
-  const [destinationLng, setDestinationLng] = useState<number | undefined>(undefined);
+  const [destinationLat, setDestinationLat] = useState<number | undefined>(
+    undefined,
+  );
+  const [destinationLng, setDestinationLng] = useState<number | undefined>(
+    undefined,
+  );
   const [mode, setMode] = useState<TripMode>("walk");
   const [departureTime, setDepartureTime] = useState<string>("");
   const [companions, setCompanions] = useState<Companion[]>([]);
@@ -46,7 +56,12 @@ export default function TripForm() {
   }, []);
 
   const canSubmit = useMemo(() => {
-    return consent && origin.trim().length > 0 && destination.trim().length > 0 && departureTime;
+    return (
+      consent &&
+      origin.trim().length > 0 &&
+      destination.trim().length > 0 &&
+      departureTime
+    );
   }, [consent, origin, destination, departureTime]);
 
   const useCurrentAsOrigin = () => {
@@ -62,7 +77,7 @@ export default function TripForm() {
         toast.success("Origin detected");
       },
       () => toast.info("Unable to detect location"),
-      { enableHighAccuracy: true, timeout: 8000 }
+      { enableHighAccuracy: true, timeout: 8000 },
     );
   };
 
@@ -79,16 +94,21 @@ export default function TripForm() {
         toast.success("Destination detected");
       },
       () => toast.info("Unable to detect location"),
-      { enableHighAccuracy: true, timeout: 8000 }
+      { enableHighAccuracy: true, timeout: 8000 },
     );
   };
 
   const addCompanion = () => {
-    setCompanions((c) => [...c, { id: uid(), name: "", age: undefined, relationship: "" }]);
+    setCompanions((c) => [
+      ...c,
+      { id: uid(), name: "", age: undefined, relationship: "" },
+    ]);
   };
 
   const updateCompanion = (id: string, patch: Partial<Companion>) => {
-    setCompanions((cs) => cs.map((c) => (c.id === id ? { ...c, ...patch } : c)));
+    setCompanions((cs) =>
+      cs.map((c) => (c.id === id ? { ...c, ...patch } : c)),
+    );
   };
 
   const removeCompanion = (id: string) => {
@@ -112,7 +132,10 @@ export default function TripForm() {
       destinationLng,
       mode,
       departureTime: new Date(departureTime).toISOString(),
-      companions: companions.map((c) => ({ ...c, age: c.age ? Number(c.age) : undefined })),
+      companions: companions.map((c) => ({
+        ...c,
+        age: c.age ? Number(c.age) : undefined,
+      })),
       consentGiven: consent,
       notes,
       createdAt: new Date().toISOString(),
@@ -153,39 +176,84 @@ export default function TripForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2"><Route className="h-5 w-5 text-primary" /> Capture Trip</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <Route className="h-5 w-5 text-primary" /> Capture Trip
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium mb-1">Trip Number</label>
-            <Input type="number" value={tripNumber} onChange={(e) => setTripNumber(Number(e.target.value))} />
+            <label className="block text-sm font-medium mb-1">
+              Trip Number
+            </label>
+            <Input
+              type="number"
+              value={tripNumber}
+              onChange={(e) => setTripNumber(Number(e.target.value))}
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Departure Time</label>
+            <label className="block text-sm font-medium mb-1">
+              Departure Time
+            </label>
             <div className="flex gap-2">
-              <Input type="datetime-local" value={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />
-              <Button type="button" variant="secondary" onClick={setNow}>Now</Button>
+              <Input
+                type="datetime-local"
+                value={departureTime}
+                onChange={(e) => setDepartureTime(e.target.value)}
+              />
+              <Button type="button" variant="secondary" onClick={setNow}>
+                Now
+              </Button>
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 flex items-center gap-2"><MapPin className="h-4 w-4" /> Origin</label>
+            <label className="block text-sm font-medium mb-1 flex items-center gap-2">
+              <MapPin className="h-4 w-4" /> Origin
+            </label>
             <div className="flex gap-2">
-              <Input placeholder="Address or place" value={origin} onChange={(e) => setOrigin(e.target.value)} />
-              <Button type="button" variant="secondary" onClick={useCurrentAsOrigin}>Use GPS</Button>
+              <Input
+                placeholder="Address or place"
+                value={origin}
+                onChange={(e) => setOrigin(e.target.value)}
+              />
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={useCurrentAsOrigin}
+              >
+                Use GPS
+              </Button>
             </div>
             {originLat !== undefined && originLng !== undefined && (
-              <p className="text-xs text-muted-foreground mt-1">Lat: {originLat.toFixed(6)}, Lng: {originLng.toFixed(6)}</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Lat: {originLat.toFixed(6)}, Lng: {originLng.toFixed(6)}
+              </p>
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 flex items-center gap-2"><MapPin className="h-4 w-4" /> Destination</label>
+            <label className="block text-sm font-medium mb-1 flex items-center gap-2">
+              <MapPin className="h-4 w-4" /> Destination
+            </label>
             <div className="flex gap-2">
-              <Input placeholder="Address or place" value={destination} onChange={(e) => setDestination(e.target.value)} />
-              <Button type="button" variant="secondary" onClick={useCurrentAsDestination}>Use GPS</Button>
+              <Input
+                placeholder="Address or place"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+              />
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={useCurrentAsDestination}
+              >
+                Use GPS
+              </Button>
             </div>
             {destinationLat !== undefined && destinationLng !== undefined && (
-              <p className="text-xs text-muted-foreground mt-1">Lat: {destinationLat.toFixed(6)}, Lng: {destinationLng.toFixed(6)}</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Lat: {destinationLat.toFixed(6)}, Lng:{" "}
+                {destinationLng.toFixed(6)}
+              </p>
             )}
           </div>
           <div>
@@ -196,14 +264,20 @@ export default function TripForm() {
               </SelectTrigger>
               <SelectContent>
                 {modes.map((m) => (
-                  <SelectItem key={m.value} value={m.value}>{m.label}</SelectItem>
+                  <SelectItem key={m.value} value={m.value}>
+                    {m.label}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Notes</label>
-            <Input placeholder="Optional notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <Input
+              placeholder="Optional notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
           </div>
         </div>
 
@@ -215,14 +289,25 @@ export default function TripForm() {
         />
 
         <div className="mt-6 flex items-start gap-3">
-          <Checkbox id="consent" checked={consent} onCheckedChange={(v) => setConsent(!!v)} />
-          <label htmlFor="consent" className="text-sm leading-tight text-muted-foreground">
-            I consent to the collection of this trip information for transportation planning. Location access may be used to auto-fill origin/destination. Data can be synced to the server.
+          <Checkbox
+            id="consent"
+            checked={consent}
+            onCheckedChange={(v) => setConsent(!!v)}
+          />
+          <label
+            htmlFor="consent"
+            className="text-sm leading-tight text-muted-foreground"
+          >
+            I consent to the collection of this trip information for
+            transportation planning. Location access may be used to auto-fill
+            origin/destination. Data can be synced to the server.
           </label>
         </div>
 
         <div className="mt-6">
-          <Button size="lg" onClick={submit} disabled={!canSubmit}>Save Trip</Button>
+          <Button size="lg" onClick={submit} disabled={!canSubmit}>
+            Save Trip
+          </Button>
         </div>
       </CardContent>
     </Card>

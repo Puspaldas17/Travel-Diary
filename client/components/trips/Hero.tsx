@@ -11,16 +11,28 @@ export default function Hero() {
               NATPAC Travel Diary
             </h1>
             <p className="text-muted-foreground max-w-prose">
-              Capture trip details like origin, time, mode, destination and accompanying travellers. Your consent is required. Data is stored locally and can be synced to the server for planning purposes.
+              Capture trip details like origin, time, mode, destination and
+              accompanying travellers. Your consent is required. Data is stored
+              locally and can be synced to the server for planning purposes.
             </p>
             <div className="flex flex-wrap gap-2 pt-2 text-sm">
-              <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1"><Sparkles className="h-4 w-4" /> Auto-detect location</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1"><Clock className="h-4 w-4" /> Quick time set</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1"><Users className="h-4 w-4" /> Companions</span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1">
+                <Sparkles className="h-4 w-4" /> Auto-detect location
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1">
+                <Clock className="h-4 w-4" /> Quick time set
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1">
+                <Users className="h-4 w-4" /> Companions
+              </span>
             </div>
           </div>
           <div className="flex-1">
-            <img src="/placeholder.svg" alt="Travel" className="w-full h-44 md:h-56 object-contain" />
+            <img
+              src="/placeholder.svg"
+              alt="Travel"
+              className="w-full h-44 md:h-56 object-contain"
+            />
           </div>
         </div>
       </div>
