@@ -100,4 +100,13 @@ const App = () => (
   </QueryClientProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+const container = document.getElementById("root")!;
+// Reuse root across HMR to avoid double createRoot
+// @ts-expect-error assign on window for persistence across module reloads
+let root = (window as any).__app_root;
+if (!root) {
+  root = createRoot(container);
+  // @ts-expect-error store on window
+  (window as any).__app_root = root;
+}
+root.render(<App />);
