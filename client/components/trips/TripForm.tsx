@@ -151,6 +151,9 @@ export default function TripForm() {
         body: JSON.stringify(trip),
       });
       if (res.ok) {
+        // Mark as synced locally
+        const { markSynced } = await import("@/lib/trips");
+        markSynced(trip.id);
         toast.success("Synced with server");
       } else {
         toast.info("Server unavailable, will sync later");
