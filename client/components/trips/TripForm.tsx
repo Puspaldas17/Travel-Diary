@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Trip, TripMode, Companion } from "@shared/api";
-import { nextTripNumber, saveTrip } from "@/lib/trips";
+import { nextTripNumber, saveTrip, markSynced } from "@/lib/trips";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -152,7 +152,6 @@ export default function TripForm() {
       });
       if (res.ok) {
         // Mark as synced locally
-        const { markSynced } = await import("@/lib/trips");
         markSynced(trip.id);
         toast.success("Synced with server");
       } else {
