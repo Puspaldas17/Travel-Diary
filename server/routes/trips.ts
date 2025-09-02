@@ -78,7 +78,7 @@ export function registerTripsRoutes(app: Router) {
       return res.status(400).json({ message: "Invalid payload", issues: parsed.error.issues });
     }
     const syncedIds: string[] = [];
-    for (const t of parsed.data.trips) {
+    for (const t of parsed.data.trips as any[]) {
       upsertTrip(t);
       syncedIds.push(t.id);
     }
