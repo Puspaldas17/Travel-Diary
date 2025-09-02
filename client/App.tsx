@@ -19,19 +19,43 @@ function Layout({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
         <div className="container h-14 flex items-center justify-between">
           <Link to="/" className="inline-flex items-center gap-2 font-semibold">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground"><Plane className="h-4 w-4" /></span>
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+              <Plane className="h-4 w-4" />
+            </span>
             <span>Natpac TravelLog</span>
           </Link>
           <nav className="flex items-center gap-6 text-sm">
-            <NavLink to="/" end className={({ isActive }) => isActive ? "text-primary" : "text-foreground/70 hover:text-foreground"}>Home</NavLink>
-            <NavLink to="/trips" className={({ isActive }) => isActive ? "text-primary" : "text-foreground/70 hover:text-foreground"}>Trips</NavLink>
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary"
+                  : "text-foreground/70 hover:text-foreground"
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/trips"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary"
+                  : "text-foreground/70 hover:text-foreground"
+              }
+            >
+              Trips
+            </NavLink>
           </nav>
         </div>
       </header>
       <main className="flex-1">{children}</main>
       <footer className="border-t text-sm text-muted-foreground">
         <div className="container py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p>&copy; {new Date().getFullYear()} NATPAC. For research and planning use.</p>
+          <p>
+            &copy; {new Date().getFullYear()} NATPAC. For research and planning
+            use.
+          </p>
           <p>Privacy-first. Data stored locally with optional sync.</p>
         </div>
       </footer>
@@ -46,9 +70,30 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout><Index /></Layout>} />
-          <Route path="/trips" element={<Layout><Trips /></Layout>} />
-          <Route path="*" element={<Layout><NotFound /></Layout>} />
+          <Route
+            path="/"
+            element={
+              <Layout>
+                <Index />
+              </Layout>
+            }
+          />
+          <Route
+            path="/trips"
+            element={
+              <Layout>
+                <Trips />
+              </Layout>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Layout>
+                <NotFound />
+              </Layout>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

@@ -106,19 +106,32 @@ export default function Trips() {
                   <span className="font-medium">Mode:</span> {t.mode}
                 </div>
                 <div>
-                  <span className="font-medium">Time:</span> {new Date(t.departureTime).toLocaleString()}
+                  <span className="font-medium">Time:</span>{" "}
+                  {new Date(t.departureTime).toLocaleString()}
                 </div>
               </div>
               {!!t.companions?.length && (
                 <div>
-                  <span className="font-medium">Companions:</span> {t.companions.length}
+                  <span className="font-medium">Companions:</span>{" "}
+                  {t.companions.length}
                 </div>
               )}
               <div className="flex gap-2 pt-2">
-                <Button size="sm" onClick={() => syncTrip(t)} disabled={!!t.syncedAt}>
+                <Button
+                  size="sm"
+                  onClick={() => syncTrip(t)}
+                  disabled={!!t.syncedAt}
+                >
                   <UploadCloud className="h-4 w-4 mr-2" /> Sync
                 </Button>
-                <Button size="sm" variant="outline" onClick={() => { removeTrip(t.id); setLocalTrips(getTrips()); }}>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    removeTrip(t.id);
+                    setLocalTrips(getTrips());
+                  }}
+                >
                   <Trash2 className="h-4 w-4 mr-2" /> Delete
                 </Button>
               </div>
@@ -128,7 +141,9 @@ export default function Trips() {
       </div>
 
       {!trips.length && (
-        <div className="text-center text-muted-foreground py-24">No trips yet. Capture your first trip from Home.</div>
+        <div className="text-center text-muted-foreground py-24">
+          No trips yet. Capture your first trip from Home.
+        </div>
       )}
     </div>
   );
